@@ -1,0 +1,17 @@
+{
+  "name": "blogweb",
+  "version": "1.0.0",
+  "description": "A blog website for practice",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "work": "nodemon api/index.js",
+    "start": "node api/index.js"
+  },
+  "author": "Hamza Nayab",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^2.0.13"
+  }
+}
