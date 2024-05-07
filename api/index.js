@@ -6,8 +6,6 @@ dotenv.config();
 
 const app = express();
 const port = 3000;
-// const db =
-//   "mongodb+srv://hamzanayab:hamza@mernblog.zqav0wp.mongodb.net/mern-blog";
 
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
