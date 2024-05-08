@@ -33,7 +33,7 @@ export default function Signup() {
             </div>
             <div>
               <Label value="your email"></Label>
-              <TextInput type="text" placeholder="email@company.com" id="email"></TextInput>
+              <TextInput type="text" placeholder="email@company.co" id="email"></TextInput>
             </div>
             <div>
               <Label value="your password"></Label>
