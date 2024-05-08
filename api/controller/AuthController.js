@@ -1,6 +1,7 @@
 import { query } from "express";
 import user from "../models/usermodel.js";
 import bcryptjs from "bcryptjs";
+import { errhandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
   const { email, username, password } = req.body;
@@ -13,7 +14,7 @@ export const signup = async (req, res, next) => {
     username === "" ||
     password == ""
   ) {
-    return res.status(400).json({ message: "All fields are Required" });
+    return next(errhandler(400,"All fields are required"));
   }
   const hashed = bcryptjs.hashSync(password, 10);
 
