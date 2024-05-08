@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/userroute.js";
 import Authroute from "./routes/Authroute.js";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -21,10 +23,11 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
 app.use("/api/user", userRouter);
 
 app.use("/api/auth", Authroute);
+
+
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

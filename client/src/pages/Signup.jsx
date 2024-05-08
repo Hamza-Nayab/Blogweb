@@ -7,6 +7,8 @@ export default function Signup() {
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.id]: e.target.value });
   };
+  console.log(formdata);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -14,8 +16,9 @@ export default function Signup() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formdata),
-      })
-      const data = await res.json;
+      });
+      const data = await res.json();
+      console.log(data);
     } catch (error) {}
   };
 
