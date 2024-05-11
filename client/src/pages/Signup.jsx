@@ -1,4 +1,4 @@
-import { Button, Label, TextInput } from "flowbite-react";
+import { Alert, Button, Label, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, json } from "react-router-dom";
 
@@ -7,7 +7,6 @@ export default function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
 
-  
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.id]: e.target.value.trim() });
   };
@@ -89,6 +88,11 @@ export default function Signup() {
             <span>have an account?</span>
             <Link to={"/signin"}>Sign in</Link>
           </div>
+          {error && (
+            <Alert className="mt-5" color={"failure"}>
+              {error}
+            </Alert>
+          )}
         </div>
       </div>
     </div>
