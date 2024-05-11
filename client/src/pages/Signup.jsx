@@ -7,6 +7,7 @@ export default function Signup() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
 
+  
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.id]: e.target.value.trim() });
   };
