@@ -15,7 +15,7 @@ export const signup = async (req, res, next) => {
     username === "" ||
     password == ""
   ) {
-    return next(errhandler(400,"All fields are required"));
+    return next(errhandler(400, "All fields are required"));
   }
   const hashed = bcryptjs.hashSync(password, 10);
 
@@ -33,32 +33,34 @@ export const signup = async (req, res, next) => {
   }
 };
 
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
 
-export const signin = async (req, res, next)=>{
-  const {email,password} = req.body;
+  if (!email || !password || email === "" || password === "") {
+    next(errhandler(400, "all fields are required"));
+  }
 
-  if(!email || !password || email === "" || password ===""){
-    next(errhandler(400,"all fields are required"))
-  }
-  
-  try{
-    const checkUser = await user.findOne({email});
-    
-    if(!checkUser){
-      next(errhandler(404,"User not found"));
+  try {
+    const checkUser = await user.findOne({ email });
+
+    if (!checkUser) {
+      return next(errhandler(404, "User not found"));
     }
-    
-    const chkpass = bcryptjs.compareSync(password,checkUser.password);
-    if(!chkpass){
-      next(errhandler(404,"Password incorrect"));
+
+    const chkpass = bcryptjs.compareSync(password, checkUser.password);
+    if (!chkpass) {
+      return next(errhandler(404, "Password incorrect"));
     }
-    const token = jwt.sign({id:checkUser._id, },process.env.SK);
-    
-    res.status(200).cookie('access_token', token,{
-      httpOnly:true,
-    }).json(checkUser);
-  }
-  catch(err){
+    const token = jwt.sign({ id: checkUser._id }, process.env.SK);
+    const { password: pass, ...rest } = checkUser._doc;
+
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .json(rest);
+  } catch (err) {
     next(err);
   }
-}
+};
