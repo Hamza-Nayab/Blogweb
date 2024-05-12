@@ -40,17 +40,20 @@ export const signin = async (req, res, next)=>{
   if(!email || !password || email === "" || password ===""){
     next(errhandler(400,"all fields are required"))
   }
+  
   try{
-    const checkUser = user.findOne({email});
+    const checkUser = await user.findOne({email});
+    
     if(!checkUser){
       next(errhandler(404,"User not found"));
     }
+    
     const chkpass = bcryptjs.compareSync(password,checkUser.password);
     if(!chkpass){
       next(errhandler(404,"Password incorrect"));
     }
     const token = jwt.sign({id:checkUser._id, },process.env.SK);
-
+    
     res.status(200).cookie('access_token', token,{
       httpOnly:true,
     }).json(checkUser);
