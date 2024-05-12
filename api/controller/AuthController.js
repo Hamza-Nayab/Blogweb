@@ -49,9 +49,11 @@ export const signin = async (req, res, next)=>{
     if(!chkpass){
       next(errhandler(404,"Password incorrect"));
     }
-    const token = jwt.sign({id:checkUser._id, }, )
+    const token = jwt.sign({id:checkUser._id, },process.env.SK);
 
-
+    res.status(200).cookie('access_token', token,{
+      httpOnly:true,
+    }).json('')
   }
   catch(err){
     next(err);
