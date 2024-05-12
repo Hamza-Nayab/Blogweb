@@ -2,6 +2,7 @@ import { query } from "express";
 import user from "../models/usermodel.js";
 import bcryptjs from "bcryptjs";
 import { errhandler } from "../utils/error.js";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   const { email, username, password } = req.body;
@@ -31,3 +32,28 @@ export const signup = async (req, res, next) => {
     next(err);
   }
 };
+
+
+export const signin = async (req, res, next)=>{
+  const {email,password} = req.body;
+
+  if(!email || !password || email === "" || password ===""){
+    next(errhandler(400,"all fields are required"))
+  }
+  try{
+    const checkUser = user.findOne({email});
+    if(!checkUser){
+      next(errhandler(404,"User not found"));
+    }
+    const chkpass = bcryptjs.compareSync(password,checkUser.password);
+    if(!chkpass){
+      next(errhandler(404,"Password incorrect"));
+    }
+    const token = jwt.sign({id:checkUser._id, }, )
+
+
+  }
+  catch(err){
+    next(err);
+  }
+}
