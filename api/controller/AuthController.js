@@ -53,7 +53,7 @@ export const signin = async (req, res, next)=>{
 
     res.status(200).cookie('access_token', token,{
       httpOnly:true,
-    }).json('')
+    }).json(checkUser);
   }
   catch(err){
     next(err);
