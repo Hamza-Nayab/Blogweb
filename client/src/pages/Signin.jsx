@@ -42,8 +42,6 @@ export default function Signin() {
       }
     } catch (error) {
       dispatch(signInfail(error.message));
-    } finally {
-      setLoading(false);
     }
   };
 
