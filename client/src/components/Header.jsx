@@ -1,4 +1,11 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
+import {
+  Avatar,
+  AvatarGroup,
+  Button,
+  Dropdown,
+  Navbar,
+  TextInput,
+} from "flowbite-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -36,7 +43,30 @@ export default function Header() {
           <FaMoon />
         </Button>
         {currentUser ? (
-          <></>
+          <>
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar
+                  rounded
+                  alt="user"
+                  img={currentUser.profilePicture}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">{currentUser.username}</span>
+                <span className="block text-sm font-medium truncate">{currentUser.email}</span>
+
+              </Dropdown.Header>
+              <Link to={"/dashboard?tab=profile"}>
+                <Dropdown.Item>Profile</Dropdown.Item>
+              </Link>
+              <Dropdown.Divider></Dropdown.Divider>
+              <Dropdown.Item>Sign-out</Dropdown.Item>
+            </Dropdown>
+          </>
         ) : (
           <>
             <Link to={"/signin"} className="w-13 h-12">

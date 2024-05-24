@@ -15,13 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+console.log(process.env.SK);
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("db connected");
   })
   .catch((err) => {
-    console.log(err);
+    //console.log(err);
   });
 app.use("/api/user", userRouter);
 
