@@ -17,7 +17,7 @@ export default function Header() {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
-  const {theme} = useSelector((state) => state.theme)
+  const { theme } = useSelector((state) => state.theme);
 
   return (
     <Navbar className="border-b-2">
@@ -48,11 +48,7 @@ export default function Header() {
           pill
           onClick={() => dispatch(toggleTheme())}
         >
-          { theme === "light" ? (
-            <FaMoon />
-          ) : (
-            <FaSun />
-          )}
+          {theme === "light" ? <FaMoon /> : <FaSun />}
         </Button>
         {currentUser ? (
           <>
